@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "60919492784",
+    "project_id": "ibilling-63657",
+    "storage_bucket": "ibilling-63657.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:60919492784:android:60bc677deef765906fcb75",
+        "android_client_info": {
+          "package_name": "com.android.application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "60919492784-spr31p18pbsk86t0odd3psfkodiqjuja.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqswDYWZ7E5PeocNvlsiX3NMp2dsrIL1Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "60919492784-spr31p18pbsk86t0odd3psfkodiqjuja.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "60919492784-kvjcou209o3jteq5soh0i8p9de7j0jck.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.ibiling"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
