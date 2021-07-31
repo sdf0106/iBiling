@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ibiling/ui/widgets/new_contract_fields.dart';
 
 
 class Create extends StatelessWidget {
@@ -6,8 +7,6 @@ class Create extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      
-    );
+    return NewContractFields();
   }
 }

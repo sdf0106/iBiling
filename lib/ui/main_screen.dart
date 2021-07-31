@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ibiling/ui/screens/contracts.dart';
 import 'package:ibiling/ui/screens/create.dart';
+import 'package:ibiling/ui/screens/filters.dart';
 import 'package:ibiling/ui/screens/history.dart';
 import 'package:ibiling/ui/screens/profile.dart';
 import 'package:ibiling/ui/screens/saved.dart';
@@ -62,7 +64,9 @@ class _MainScreenState extends State<MainScreen> {
               height: 20.0,
               width: 20.0,
             ),
-            onPressed: () {},
+            onPressed: () {
+              _push();
+            },
           ),
           SizedBox(width: 20.0),
           SvgPicture.asset('assets/images/line.svg'),
@@ -147,4 +151,10 @@ class _MainScreenState extends State<MainScreen> {
       ),
     );
   }
+  void _push(){
+
+Navigator.push(context, MaterialPageRoute(builder: (context) => FiltersScreen()));
+
 }
+}
+

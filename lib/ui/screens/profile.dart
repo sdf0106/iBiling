@@ -12,11 +12,13 @@ class Profile extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          // ProfileCard(),
-          LangButton(
-            language: 'English (USA)',
-            flag: ('ru'),
-          ),
+          ProfileCard(),
+          SizedBox(height: 12.0),
+          // LangButton(
+          //   language: 'English (USA)',
+          //   flag: ('ru'),
+          //   parentContext: context,
+          // ),
         ],
       ),
     );
