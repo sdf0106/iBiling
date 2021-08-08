@@ -1,8 +1,239 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter_svg/flutter_svg.dart';
-// import 'package:ibiling/ui/style/theme.dart' as Style;
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:ibiling/ui/style/theme.dart' as Style;
 // import 'package:ibiling/ui/widgets/picking_language/dialog_route.dart';
 
+class LanguageChangeContainer extends StatefulWidget {
+  const LanguageChangeContainer({Key? key, required this.context}) : super(key: key);
+  final BuildContext context;
+  @override
+  LanguageChangeContainerState createState() => LanguageChangeContainerState();
+}
+
+class LanguageChangeContainerState extends State<LanguageChangeContainer> {
+  String lang = 'en';
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () async {
+        showDialog(
+          barrierColor: Color(0xFF0C0C0C).withOpacity(0.8),
+          context: widget.context,
+          barrierDismissible: true,
+          builder: (_) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              //  contentPadding: const EdgeInsets.all(0),
+             
+              // insetPadding: EdgeInsets.symmetric(
+              //   horizontal: 320.0,
+              //   vertical: 278.0,
+              // ),
+              contentPadding: EdgeInsets.zero,
+              backgroundColor: Style.Colors.dark,
+              title: Padding(
+                padding: EdgeInsets.only(top: 16.0, right: 36.0, left: 35.0),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 18.0,
+                  child: Center(
+                    child: Text(
+                      'Choose a language',
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'Ubuntu',
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              content: Padding(
+                padding: EdgeInsets.only(top: 28.0, right: 28.0, left: 28.0),
+                child: Column(
+                  children: [
+                    ListTile(
+                      leading: SvgPicture.asset('assets/images/uz.svg'),
+                      title: Text(
+                        'O\'zbek (Lotin)',
+                        style: TextStyle(
+                          color: Color(0xFFE7E7E7),
+                          fontWeight: FontWeight.w400,
+                          fontFamily: 'Ubuntu',
+                          fontSize: 14.0,
+                        ),
+                      ),
+                      trailing: Radio(
+                        activeColor: Style.Colors.darkGreen,
+                        focusColor: Color(0xFFA6A6A6).withOpacity(0.200),
+                        value: 'uz',
+                        groupValue: lang,
+                        onChanged: (language) {
+                          setState(() {
+                            lang = language.toString();
+                          });
+                        },
+                      ),
+                      onTap: () {
+                        setState(() {
+                          lang = 'uz';
+                        });
+                      },
+                    ),
+                    SizedBox(height: 24.0),
+                    ListTile(
+                      leading: SvgPicture.asset('assets/images/ru.svg'),
+                      title: Text(
+                        'Русский',
+                        style: TextStyle(
+                          color: Color(0xFFE7E7E7),
+                          fontWeight: FontWeight.w400,
+                          fontFamily: 'Ubuntu',
+                          fontSize: 14.0,
+                        ),
+                      ),
+                      trailing: Radio(
+                        activeColor: Style.Colors.darkGreen,
+                        value: 'ru',
+                        groupValue: lang,
+                        onChanged: (language) {
+                          setState(() {
+                            lang = language.toString();
+                          });
+                        },
+                      ),
+                      onTap: () {
+                        setState(() {
+                          lang = 'ru';
+                        });
+                      },
+                    ),
+                    SizedBox(height: 24.0),
+                    ListTile(
+                      leading: SvgPicture.asset('assets/images/us.svg'),
+                      title: Text(
+                        'English (USA)',
+                        style: TextStyle(
+                          color: Color(0xFFE7E7E7),
+                          fontWeight: FontWeight.w400,
+                          fontFamily: 'Ubuntu',
+                          fontSize: 14.0,
+                        ),
+                      ),
+                      trailing: Radio(
+                        activeColor: Style.Colors.darkGreen,
+                        value: 'us',
+                        groupValue: lang,
+                        onChanged: (language) {
+                          setState(() {
+                            lang = language.toString();
+                          });
+                        },
+                      ),
+                      onTap: () {
+                        setState(() {
+                          lang = 'en';
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              actions: [
+                Padding(
+                  padding: EdgeInsets.only(top: 31.0, right: 0.0, left: 28.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Container(
+                          height: 37.0,
+                          width: 125.0,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(6.0),
+                            color: Style.Colors.darkGreen.withOpacity(0.3),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Cancel',
+                              style: TextStyle(
+                                color: Style.Colors.darkGreen,
+                                fontFamily: 'Ubuntu',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 14.0,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {},
+                        child: Container(
+                          height: 37.0,
+                          width: 125.0,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(6.0),
+                            color: Style.Colors.darkGreen,
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Done',
+                              style: TextStyle(
+                                color: Color(0xFFFDFDFD),
+                                fontFamily: 'Ubuntu',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 14.0,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            );
+          },
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: 44.0,
+          decoration: BoxDecoration(
+            color: Style.Colors.dark,
+            borderRadius: BorderRadius.circular(6.0),
+          ),
+          child: Padding(
+            padding: EdgeInsets.only(top: 12.0, left: 20.0, right: 12.0, bottom: 12.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'English (USA)',
+                  style: TextStyle(
+                    fontFamily: 'Ubuntu',
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xFFE7E7E7),
+                  ),
+                ),
+                SvgPicture.asset('assets/images/us.svg',),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
 // class LangButton extends StatefulWidget {
 //   final String language;
 //   final String flag;

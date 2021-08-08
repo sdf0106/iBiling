@@ -12,7 +12,7 @@ class MockIBillingService {
 
   Future<List<Contract>> _getContracts() async {
     await Future.delayed(const Duration(seconds: 2));
-    final contractString = await _loadAsset('assets/sample_json/contracts.json');
+    final contractString = await _loadAsset('assets/data/contracts.json');
 
     final jsonData = json.decode(contractString);
 

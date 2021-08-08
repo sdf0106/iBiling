@@ -1,10 +1,12 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:ibiling/bloc/history/history_bloc.dart';
 import 'package:ibiling/ui/style/theme.dart' as Style;
 
 class FromToDate extends StatefulWidget {
   const FromToDate({Key? key}) : super(key: key);
-
   @override
   _FromToDateState createState() => _FromToDateState();
 }
@@ -13,8 +15,10 @@ class _FromToDateState extends State<FromToDate> {
   DateTime? _from;
   DateTime? _to;
 
+  //String formattedDate = DateFormat('yyyy-MM-dd').format(_from!);
   @override
   Widget build(BuildContext context) {
+    final bloc = BlocProvider.of<HistoryBloc>(context, listen: false);
     return Row(
       children: [
         GestureDetector(
@@ -22,11 +26,18 @@ class _FromToDateState extends State<FromToDate> {
             showDatePicker(
               context: context,
               initialDate: DateTime.now(),
-              firstDate: DateTime(2020),
+              firstDate: DateTime(2021),
               lastDate: DateTime(2022),
             ).then((date) {
               setState(() {
-                _from = date ;
+                _from = date;
+                bloc.setInitialDate = date.toString();
+                if (!(bloc.getInitialDate == ' ' || bloc.getLastDate == ' ')) {
+                  bloc.add(LoadHistoryEvent(
+                    initialDate: bloc.getInitialDate,
+                    lastDate: bloc.getLastDate,
+                  ));
+                }
               });
             });
           },
@@ -35,13 +46,13 @@ class _FromToDateState extends State<FromToDate> {
             width: 117,
             color: Style.Colors.dark,
             child: Padding(
-              padding:
-                  const EdgeInsets.only(top: 10.0, right: 12.0, left: 12.0, bottom: 11.0),
+              padding: const EdgeInsets.only(
+                  top: 10.0, right: 12.0, left: 12.0, bottom: 11.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    _from == null ? 'From':_from.toString(),
+                    _from == null ? 'From' : _from.toString(),
                     style: TextStyle(
                       color: Color(0xFF999999),
                       fontSize: 14.0,
@@ -66,11 +77,19 @@ class _FromToDateState extends State<FromToDate> {
             showDatePicker(
               context: context,
               initialDate: DateTime.now(),
-              firstDate: DateTime(2020),
+              firstDate: DateTime(2021),
               lastDate: DateTime(2022),
             ).then((date) {
               setState(() {
                 _to = date;
+               // _to = DateFormat.YEAR_MONTH_DAY;
+                bloc.setLastDate = date.toString();
+                if (!(bloc.getInitialDate == ' ' || bloc.getLastDate == ' ')) {
+                  bloc.add(LoadHistoryEvent(
+                    initialDate: bloc.getInitialDate,
+                    lastDate: bloc.getLastDate,
+                  ));
+                }
               });
             });
           },
@@ -79,13 +98,13 @@ class _FromToDateState extends State<FromToDate> {
             width: 117,
             color: Style.Colors.dark,
             child: Padding(
-              padding:
-                  const EdgeInsets.only(top: 10.0, right: 12.0, left: 12.0, bottom: 12.0),
+              padding: const EdgeInsets.only(
+                  top: 10.0, right: 12.0, left: 12.0, bottom: 12.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    _to == null ? 'To' :_to.toString(),
+                    _to == null ? 'To' : _to.toString(),
                     style: TextStyle(
                       color: Color(0xFF999999),
                       fontSize: 14.0,

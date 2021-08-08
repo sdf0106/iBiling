@@ -12,6 +12,7 @@ class CalendarContainer extends StatefulWidget {
 }
 
 class _CalendarContainerState extends State<CalendarContainer> {
+  var _selectedIndex = -1;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -39,7 +40,7 @@ class _CalendarContainerState extends State<CalendarContainer> {
                     IconButton(
                       onPressed: () {
                         setState(() {
-                          pickedDate = pickedDate.subtract(Duration(days: 6));
+                          pickedDate = pickedDate.subtract(Duration(days: 7));
                         });
                       },
                       icon: Icon(Icons.arrow_back_ios),
@@ -49,7 +50,7 @@ class _CalendarContainerState extends State<CalendarContainer> {
                     IconButton(
                       onPressed: () {
                         setState(() {
-                          pickedDate = pickedDate.add(Duration(days: 6));
+                          pickedDate = pickedDate.add(Duration(days: 7));
                         });
                       },
                       icon: Icon(Icons.arrow_forward_ios),
@@ -58,7 +59,7 @@ class _CalendarContainerState extends State<CalendarContainer> {
                   ],
                 ),
               ],
-             ),
+            ),
             SizedBox(
               height: 6.0,
             ),
@@ -73,13 +74,22 @@ class _CalendarContainerState extends State<CalendarContainer> {
                   );
                 },
                 itemBuilder: (_, index) {
-                  return DayContainer(
+                  return InkWell(
+                    onTap: () {
+                      _selectedIndex = index;
+                    },
+                    child: DayContainer(
+                      selectedIndex: _selectedIndex,
+                      index: index,
+                      isActive: _selectedIndex == index,
                       day: Jiffy(
                               pickedDate.add(Duration(days: index)).toString())
                           .format('E'),
                       date: Jiffy(
                               pickedDate.add(Duration(days: index)).toString())
-                          .format('dd'), index: index,);
+                          .format('dd'),
+                    ),
+                  );
                 },
               ),
             ),

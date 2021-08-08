@@ -34,10 +34,11 @@ class Contract {
   final String nSP;
   final double amount;
   @JsonKey(name: 'last-invoice')
-  final int lastInvoice;
+  final double lastInvoice;
   @JsonKey(name: 'number-of-invoices')
-  final int numberOfInvoices;
-  final int number;
+  final double numberOfInvoices;
+  final double number;
+  final String address;
   Contract({
     required this.date,
     required this.contractStatus,
@@ -46,6 +47,7 @@ class Contract {
     required this.lastInvoice,
     required this.numberOfInvoices,
     required this.number,
+    required this.address,
   });
 
   factory Contract.fromJson(Map<String, dynamic> json) =>
@@ -60,7 +62,8 @@ Contract _$ContractFromJson(Map<String, dynamic> json) => Contract(
       lastInvoice: json['lastInvoice'],
       numberOfInvoices: json['numberOfInvoices'],
       number: json['number'], 
-      contractStatus: json['Paid'],
+      contractStatus: json['contractStatus'],
+      address: json['address']
     );
 
 Map<String, dynamic> _$ContractToJson(Contract instance) => <String, dynamic>{
@@ -70,5 +73,6 @@ Map<String, dynamic> _$ContractToJson(Contract instance) => <String, dynamic>{
       'lastInvoice': instance.lastInvoice,
       'numberOfInvoices': instance.numberOfInvoices,
       'number': instance.number,
-      'contractStatus': instance.contractStatus
+      'contractStatus': instance.contractStatus,
+      'address' : instance.address,
     };

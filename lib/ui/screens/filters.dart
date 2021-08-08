@@ -224,7 +224,9 @@ class _FiltersScreenState extends State<FiltersScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
                   child: Container(
                     height: 40.0,
                     width: 164.0,
@@ -256,7 +258,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                     ),
                     child: Center(
                       child: Text(
-                        'Cancel',
+                        'Apply filters',
                         style: TextStyle(
                           color: Color(0xFFFDFDFD),
                           fontFamily: 'Ubuntu',

@@ -3,15 +3,37 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ibiling/ui/style/theme.dart' as Style;
 
 class TransactionCard extends StatefulWidget {
-  TransactionCard({Key? key}) : super(key: key);
-
+  TransactionCard({
+    Key? key,
+    required this.nSP,
+    required this.lastInvoice,
+    required this.amount,
+    required this.contractStatus,
+    required this.date,
+    required this.numberOfInvoices,
+  }) : super(key: key);
+  String nSP;
+  double lastInvoice;
+  double amount;
+  String contractStatus;
+  String date;
+  double numberOfInvoices;
   @override
   _TransactionCardState createState() => _TransactionCardState();
 }
 
 class _TransactionCardState extends State<TransactionCard> {
+  String status = ' ';
+
   @override
   Widget build(BuildContext context) {
+    if(widget.contractStatus == 'Paid'){
+    status = 'paid';
+  }else if(widget.contractStatus == 'In process'){
+    status = 'inProcess';
+  }else if(widget.contractStatus == 'Rejected by Payme'){
+    status = 'rejected';
+  }
     return Container(
       height: 148,
       width: MediaQuery.of(context).size.width,
@@ -47,7 +69,7 @@ class _TransactionCardState extends State<TransactionCard> {
                     ),
                   ],
                 ),
-                SvgPicture.asset('assets/images/paid.svg'),
+                SvgPicture.asset('assets/images/$status.svg'),
               ],
             ),
             SizedBox(height: 12.0),
@@ -64,7 +86,7 @@ class _TransactionCardState extends State<TransactionCard> {
                 ),
                 SizedBox(width: 8.0),
                 Text(
-                  'Yo\'ldosheva Ziyoda',
+                  widget.nSP,
                   style: TextStyle(
                     color: Color(0xFF999999),
                     fontFamily: 'Ubuntu',
@@ -88,7 +110,7 @@ class _TransactionCardState extends State<TransactionCard> {
                 ),
                 SizedBox(width: 8.0),
                 Text(
-                  '1,200,000 UZS',
+                  '${widget.amount} UZS',
                   style: TextStyle(
                     color: Color(0xFF999999),
                     fontFamily: 'Ubuntu',
@@ -112,7 +134,7 @@ class _TransactionCardState extends State<TransactionCard> {
                 ),
                 SizedBox(width: 8.0),
                 Text(
-                  '№ 156',
+                  '№ ${widget.lastInvoice}',
                   style: TextStyle(
                     color: Color(0xFF999999),
                     fontFamily: 'Ubuntu',
@@ -139,7 +161,7 @@ class _TransactionCardState extends State<TransactionCard> {
                     ),
                     SizedBox(width: 8.0),
                     Text(
-                      '6',
+                      widget.numberOfInvoices.toString(),
                       style: TextStyle(
                         color: Color(0xFF999999),
                         fontFamily: 'Ubuntu',
@@ -150,7 +172,7 @@ class _TransactionCardState extends State<TransactionCard> {
                   ],
                 ),
                 Text(
-                  '31.01.2021',
+                  widget.date,
                   style: TextStyle(
                     color: Color(0xFF999999),
                     fontSize: 14.0,

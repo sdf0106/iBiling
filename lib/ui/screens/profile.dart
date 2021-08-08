@@ -14,6 +14,7 @@ class Profile extends StatelessWidget {
         children: [
           ProfileCard(),
           SizedBox(height: 12.0),
+          LanguageChangeContainer(context: context),
           // LangButton(
           //   language: 'English (USA)',
           //   flag: ('ru'),

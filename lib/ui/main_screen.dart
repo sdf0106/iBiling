@@ -8,6 +8,7 @@ import 'package:ibiling/ui/screens/history.dart';
 import 'package:ibiling/ui/screens/profile.dart';
 import 'package:ibiling/ui/screens/saved.dart';
 import 'package:ibiling/ui/style/theme.dart' as Style;
+import 'package:ibiling/ui/widgets/contract_or_invoice.dart';
 
 
 class MainScreen extends StatefulWidget {
@@ -65,7 +66,11 @@ class _MainScreenState extends State<MainScreen> {
               width: 20.0,
             ),
             onPressed: () {
-              _push();
+              Navigator(
+                onGenerateRoute: (page) {
+                  return MaterialPageRoute(builder: (context) => FiltersScreen());
+                },
+              );
             },
           ),
           SizedBox(width: 20.0),
@@ -85,11 +90,22 @@ class _MainScreenState extends State<MainScreen> {
         currentIndex: _selectedItem,
         selectedItemColor: Color(0xFFF2F2F2),
         unselectedItemColor: Color(0xFFA6A6A6),
-        onTap: (index) {
-          setState(() {
-            _selectedItem = index;
-          });
-        },
+        onTap: (passedIndex) async {
+            if (passedIndex == 2) {
+              await showDialog(
+                useSafeArea: true,
+                barrierDismissible: true,
+                barrierColor: const Color(0xFF0C0C0C).withOpacity(0.8),
+                context: context,
+                builder: (ctx) {
+                  return const ContractOrInvoice();
+                },
+              );
+            }
+            setState(() {
+              _selectedItem = passedIndex;
+            });
+          },
         
         items: [
           BottomNavigationBarItem(
@@ -151,10 +167,5 @@ class _MainScreenState extends State<MainScreen> {
       ),
     );
   }
-  void _push(){
-
-Navigator.push(context, MaterialPageRoute(builder: (context) => FiltersScreen()));
-
-}
 }
 
