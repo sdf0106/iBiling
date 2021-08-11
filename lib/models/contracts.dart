@@ -1,10 +1,12 @@
 import 'package:json_annotation/json_annotation.dart';
 
+
 @JsonSerializable()
 class ContractResponse {
   List<Contract> contracts;
+  List<Invoice> invoices;
 
-  ContractResponse({required this.contracts});
+  ContractResponse({required this.contracts, required this.invoices});
 
   factory ContractResponse.fromJson(Map<String, dynamic> json) =>
       _$ContractResponseFromJson(json);
@@ -16,6 +18,9 @@ ContractResponse _$ContractResponseFromJson(Map<String, dynamic> json) {
   return ContractResponse(
     contracts: (json['contracts'] as List<dynamic>)
         .map((e) => Contract.fromJson(e as Map<String, dynamic>))
+        .toList(), 
+    invoices: (json['invoice'] as List<dynamic>)
+        .map((e) => Invoice.fromJson(e as Map<String, dynamic>))
         .toList(),
   );
 }
@@ -76,3 +81,40 @@ Map<String, dynamic> _$ContractToJson(Contract instance) => <String, dynamic>{
       'contractStatus': instance.contractStatus,
       'address' : instance.address,
     };
+
+  @JsonSerializable() 
+  class Invoice {
+    @JsonKey(name: 'service-name')
+    String serviceName;
+    @JsonKey(name: 'invoice-status')
+    String? invoiceStatus;
+    double amount;
+    String? date;
+
+    Invoice({
+      required this.serviceName,
+      required this.invoiceStatus,
+      required this.amount,
+      required this.date
+    });
+
+    factory Invoice.fromJson(Map<String, dynamic> json) =>
+      _$InvoiceFromJson(json);
+      Map<String, dynamic> toJson() => _$InvoiceToJson(this);
+  }
+
+  Invoice _$InvoiceFromJson(Map<String, dynamic> json){
+    return Invoice(
+      serviceName: json['service-name'] as String,
+      invoiceStatus: json['inovice-status'],
+      amount: json['amount'] as double,
+      date: json['date'] ,
+    );
+  }
+
+  Map<String, dynamic> _$InvoiceToJson(Invoice instance) => <String, dynamic>{
+    'service-name': instance.serviceName,
+    'invoice-status': instance.invoiceStatus,
+    'amount': instance.amount,
+    'date': instance.date,
+  };

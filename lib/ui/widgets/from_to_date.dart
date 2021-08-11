@@ -52,7 +52,7 @@ class _FromToDateState extends State<FromToDate> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    _from == null ? 'From' : _from.toString(),
+                    _from == null ? 'From' : _from.toString().substring(0, 10),
                     style: TextStyle(
                       color: Color(0xFF999999),
                       fontSize: 14.0,
@@ -104,7 +104,7 @@ class _FromToDateState extends State<FromToDate> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    _to == null ? 'To' : _to.toString(),
+                    _to == null ? 'To' : _to.toString().substring(0, 10),
                     style: TextStyle(
                       color: Color(0xFF999999),
                       fontSize: 14.0,

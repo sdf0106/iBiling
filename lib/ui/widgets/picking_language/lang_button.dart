@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ibiling/ui/style/theme.dart' as Style;
 // import 'package:ibiling/ui/widgets/picking_language/dialog_route.dart';
+import 'package:easy_localization/easy_localization.dart';
+
 
 class LanguageChangeContainer extends StatefulWidget {
   const LanguageChangeContainer({Key? key, required this.context}) : super(key: key);
@@ -74,6 +76,7 @@ class LanguageChangeContainerState extends State<LanguageChangeContainer> {
                         onChanged: (language) {
                           setState(() {
                             lang = language.toString();
+                            context.locale = Locale('uz','UZ');
                           });
                         },
                       ),
@@ -102,6 +105,7 @@ class LanguageChangeContainerState extends State<LanguageChangeContainer> {
                         onChanged: (language) {
                           setState(() {
                             lang = language.toString();
+                            context.locale = Locale('ru','RU');
                           });
                         },
                       ),
@@ -113,7 +117,7 @@ class LanguageChangeContainerState extends State<LanguageChangeContainer> {
                     ),
                     SizedBox(height: 24.0),
                     ListTile(
-                      leading: SvgPicture.asset('assets/images/us.svg'),
+                      leading: SvgPicture.asset('assets/images/en.svg'),
                       title: Text(
                         'English (USA)',
                         style: TextStyle(
@@ -125,11 +129,12 @@ class LanguageChangeContainerState extends State<LanguageChangeContainer> {
                       ),
                       trailing: Radio(
                         activeColor: Style.Colors.darkGreen,
-                        value: 'us',
+                        value: 'en',
                         groupValue: lang,
                         onChanged: (language) {
                           setState(() {
                             lang = language.toString();
+                            context.setLocale(Locale('en', 'US'));
                           });
                         },
                       ),
@@ -173,7 +178,9 @@ class LanguageChangeContainerState extends State<LanguageChangeContainer> {
                         ),
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
                         child: Container(
                           height: 37.0,
                           width: 125.0,
@@ -225,7 +232,7 @@ class LanguageChangeContainerState extends State<LanguageChangeContainer> {
                     color: Color(0xFFE7E7E7),
                   ),
                 ),
-                SvgPicture.asset('assets/images/us.svg',),
+                SvgPicture.asset('assets/images/en.svg',),
               ],
             ),
           ),

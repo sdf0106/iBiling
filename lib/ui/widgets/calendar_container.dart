@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ibiling/bloc/contracts/contracts_bloc.dart';
 import 'package:ibiling/ui/screens/contracts.dart';
 import 'package:ibiling/ui/style/theme.dart' as Style;
 import 'package:ibiling/ui/widgets/day_container.dart';
@@ -40,6 +42,7 @@ class _CalendarContainerState extends State<CalendarContainer> {
                     IconButton(
                       onPressed: () {
                         setState(() {
+                          _selectedIndex = -1;
                           pickedDate = pickedDate.subtract(Duration(days: 7));
                         });
                       },
@@ -50,6 +53,7 @@ class _CalendarContainerState extends State<CalendarContainer> {
                     IconButton(
                       onPressed: () {
                         setState(() {
+                          _selectedIndex = -1;
                           pickedDate = pickedDate.add(Duration(days: 7));
                         });
                       },
@@ -74,9 +78,18 @@ class _CalendarContainerState extends State<CalendarContainer> {
                   );
                 },
                 itemBuilder: (_, index) {
+                   final pickedIndexDay = pickedDate.add(Duration(days: index));
+                   final pickedIndexDate = pickedDate.add(Duration(days: index)); 
+
                   return InkWell(
                     onTap: () {
-                      _selectedIndex = index;
+                     setState(() {
+                        _selectedIndex = index;
+                     });
+                     BlocProvider.of<ContractsBloc>(context).setData = pickedIndexDay.toString();
+                     BlocProvider.of<ContractsBloc>(context).add(
+                       FilterContractsByDate(pickedIndexDay.toString())
+                     );
                     },
                     child: DayContainer(
                       selectedIndex: _selectedIndex,

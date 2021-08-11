@@ -8,7 +8,7 @@
         "lastInvoice": 156.0,
         "numberOfInvoices": 6.0,
         "address": "Проспект Мирзо-Улугбек, дом 58, Мирзо-Улугбекский район, Ташкент",
-        "date" : "31.01.2021",
+        "date" : "2021-08-07 19:40:26.572236",
         "number": 5647520318.0
       },
       {
@@ -18,7 +18,7 @@
         "lastInvoice": 156.0,
         "numberOfInvoices": 5.0,
         "address": "Проспект Мирзо-Улугбек, дом 58, Мирзо-Улугбекский район, Ташкент",
-        "date" : "31.01.2021",
+        "date" : "2021-08-06 11:13:52.275267",
         "number": 5647520318.0
       },
       {
@@ -28,7 +28,7 @@
         "lastInvoice": 156.0,
         "numberOfInvoices": 6.0,
         "address": "Проспект Мирзо-Улугбек, дом 58, Мирзо-Улугбекский район, Ташкент",
-        "date" : "30.01.2021",
+        "date" : "2021-08-02 11:25:58.580019",
         "number": 5647520318.0
       },
       {
@@ -38,7 +38,7 @@
         "lastInvoice": 156.0,
         "numberOfInvoices": 6.0,
         "address": "Проспект Мирзо-Улугбек, дом 58, Мирзо-Улугбекский район, Ташкент",
-        "date" : "30.01.2021",
+        "date" : "2021-08-04 11:25:58.580019",
         "number": 5647520318.0
       },
       {
@@ -48,8 +48,33 @@
         "lastInvoice": 156.0,
         "numberOfInvoices": 6.0,
         "address": "Проспект Мирзо-Улугбек, дом 58, Мирзо-Улугбекский район, Ташкент",
-        "date" : "30.01.2021",
+        "date" : "2021-08-06 11:25:58.580019",
         "number": 5647520318.0
       }
-    ]
+    ],
+    "invoice": [{
+      "service-name": "Computer Graphics",
+      "invoice-status": "rej-by-payme",
+      "amount": 1320000.0,
+      "created-at": "2021-07-31 12:40:26.572236"
+  },
+  {
+      "service-name": "Flutter App",
+      "invoice-status": "rej-by-iq",
+      "amount": 1320000.0,
+      "created-at": "2021-08-07 12:40:26.572236"
+  },
+  {
+      "service-name": "Flutter App",
+      "invoice-status": "paid",
+      "amount": 1320000.0,
+      "created-at": "2021-08-08 12:40:26.572236"
+  },
+  {
+      "service-name": "Flutter App",
+      "invoice-status": "in-process",
+      "amount": 1320000.0,
+      "created-at": "2021-07-28 12:40:26.572236"
   }
+]
+}

@@ -5,6 +5,7 @@ import 'package:ibiling/bloc/contracts/contracts_bloc.dart';
 import 'package:ibiling/ui/style/theme.dart' as Style;
 import 'package:ibiling/ui/widgets/calendar_container.dart';
 import 'package:ibiling/ui/widgets/transaction_card.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class Contracts extends StatefulWidget {
   const Contracts({Key? key}) : super(key: key);
@@ -55,7 +56,7 @@ class _ContractsState extends State<Contracts> {
                         ),
                         child: Center(
                           child: Text(
-                            'Contracts',
+                            'contract'.tr(),
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 15.0,
@@ -86,7 +87,7 @@ class _ContractsState extends State<Contracts> {
                         ),
                         child: Center(
                           child: Text(
-                            'Invoice',
+                            'invoice'.tr(),
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 15.0,
@@ -103,36 +104,56 @@ class _ContractsState extends State<Contracts> {
                   ),
                   BlocBuilder<ContractsBloc, ContractsState>(
                     builder: (context, state) {
-                      if (state is ContractsLoadingState) {
+                      if (state is FilteringContractsByDate ||
+                          state is ContractsLoadingState ||
+                          state is ContractsInitial) {
                         return Center(
                           child: CircularProgressIndicator(
                             color: Style.Colors.darkGreen,
                           ),
                         );
-                      } else if (state is ContractsLoadedState) {
-                        return ListView.separated(
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            return TransactionCard(
-                              nSP: state.contracts[index].nSP,
-                              lastInvoice: state.contracts[index].lastInvoice,
-                              amount: state.contracts[index].amount,
-                              contractStatus:
-                                  state.contracts[index].contractStatus,
-                              date: state.contracts[index].date,
-                              numberOfInvoices:
-                                  state.contracts[index].numberOfInvoices,
-                            );
-                          },
-                          separatorBuilder: (BuildContext context, int index) =>
-                              const SizedBox(
-                            height: 12.0,
-                          ),
-                          itemCount: state.contracts.length,
-                        );
-                      } else if (state is FailToLoadContractsState) {
+                      } else if (state is FilteredContractsByDate ||
+                          state is ContractsLoadedState) {
+                        if (state is ContractsLoadedState) {
+                          return Flexible(
+                            child: Container(
+                              child: Center(
+                                child: SvgPicture.asset('assets/images/doc.svg',
+                                    height: 88.0,
+                                    width: 88.0,
+                                    color:
+                                        Color(0xFF999999) //Style.Colors.darker,
+                                    ),
+                              ),
+                            ),
+                          );
+                        } else if (state is FilteredContractsByDate) {
+                          return ListView.separated(
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              return TransactionCard(
+                                nSP: state.filteredContracts[index].nSP,
+                                lastInvoice:
+                                    state.filteredContracts[index].lastInvoice,
+                                amount: state.filteredContracts[index].amount,
+                                contractStatus: state
+                                    .filteredContracts[index].contractStatus,
+                                date: state.filteredContracts[index].date,
+                                numberOfInvoices: state
+                                    .filteredContracts[index].numberOfInvoices,
+                              );
+                            },
+                            separatorBuilder:
+                                (BuildContext context, int index) =>
+                                    const SizedBox(
+                              height: 12.0,
+                            ),
+                            itemCount: state.filteredContracts.length,
+                          );
+                        }
+                      } else if (state is FailedToFilterContractsByDate) {
                         print(state.error.toString());
-                        return Expanded(
+                        return Flexible(
                           child: Container(
                             child: Center(
                               child: SvgPicture.asset('assets/images/doc.svg',
@@ -145,7 +166,16 @@ class _ContractsState extends State<Contracts> {
                           ),
                         );
                       } else
-                        return Container();
+                        return Container(
+                          child: Center(
+                            child: SvgPicture.asset('assets/images/doc.svg',
+                                height: 88.0,
+                                width: 88.0,
+                                color: Color(0xFF999999) //Style.Colors.darker,
+                                ),
+                          ),
+                        );
+                      return Container();
                     },
                   ),
                 ],

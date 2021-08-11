@@ -4,10 +4,14 @@ import 'package:ibiling/ui/widgets/new_invoice_fields.dart';
 
 
 class Create extends StatelessWidget {
-  const Create({ Key? key }) : super(key: key);
-
+  Create({ Key? key, required this.index }) : super(key: key);
+  int index;
   @override
   Widget build(BuildContext context) {
-    return NewInvoiceFields();
+    List createPage = [
+      NewContractFields(),
+      NewInvoiceFields()
+    ];
+    return createPage[index];
   }
 }

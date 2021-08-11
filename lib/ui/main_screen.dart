@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:ibiling/ui/screens/contracts.dart';
-import 'package:ibiling/ui/screens/create.dart';
 import 'package:ibiling/ui/screens/filters.dart';
-import 'package:ibiling/ui/screens/history.dart';
-import 'package:ibiling/ui/screens/profile.dart';
-import 'package:ibiling/ui/screens/saved.dart';
+import 'package:ibiling/ui/style/constants.dart';
 import 'package:ibiling/ui/style/theme.dart' as Style;
 import 'package:ibiling/ui/widgets/contract_or_invoice.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -19,21 +15,13 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _selectedItem = 0;
   String image = '';
-  List<Widget> _pages = [
-    Contracts(),
-    History(),
-    Create(),
-    Saved(),
-    Profile(), 
+  List<String> titles = [
+    'contract'.tr(),
+    'history'.tr(),
+    'new_contract'.tr(),
+    'saved'.tr(),
+    'profile'.tr(),
   ];
-  List<String> _titles = [
-    'Contracts',
-    'History',
-    'New Contract',
-    'Saved',
-    'Profile',
-  ];
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,12 +37,12 @@ class _MainScreenState extends State<MainScreen> {
             ),
             SizedBox(width: 12.0),
             Text(
-              _titles[_selectedItem],
+              Constants.titles[_selectedItem],
               style: TextStyle(
                 fontFamily: 'Ubuntu',
                 fontSize: 18.0,
                 fontWeight: FontWeight.w500,
-              ),
+              ), 
             ),
           ],
         ),
@@ -66,11 +54,7 @@ class _MainScreenState extends State<MainScreen> {
               width: 20.0,
             ),
             onPressed: () {
-              Navigator(
-                onGenerateRoute: (page) {
-                  return MaterialPageRoute(builder: (context) => FiltersScreen());
-                },
-              );
+             Navigator.push(context, MaterialPageRoute(builder: (context) => FiltersScreen()));
             },
           ),
           SizedBox(width: 20.0),
@@ -83,7 +67,7 @@ class _MainScreenState extends State<MainScreen> {
         ],
       ),
       backgroundColor: Colors.black,
-      body: _pages[_selectedItem],
+      body: Constants.pages[_selectedItem],
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Style.Colors.darkest,
         type: BottomNavigationBarType.fixed,
@@ -111,7 +95,7 @@ class _MainScreenState extends State<MainScreen> {
           BottomNavigationBarItem(
             icon: SvgPicture.asset( _selectedItem == 0 ? 'assets/images/documentSelected.svg' : 'assets/images/document.svg'),
             title: Text(
-              'Contracts',
+              'contract'.tr(),
               style: TextStyle(
                 fontFamily: 'Ubuntu',
                 fontSize: 10.0,
@@ -122,7 +106,7 @@ class _MainScreenState extends State<MainScreen> {
           BottomNavigationBarItem(
             icon: SvgPicture.asset(_selectedItem == 1 ? 'assets/images/timeCircleSelected.svg' : 'assets/images/timeCircle.svg'),
             title: Text(
-              'History',
+              'history'.tr(),
               style: TextStyle(
                 fontFamily: 'Ubuntu',
                 fontSize: 10.0,
@@ -133,7 +117,7 @@ class _MainScreenState extends State<MainScreen> {
           BottomNavigationBarItem(
             icon: SvgPicture.asset(_selectedItem == 2 ? 'assets/images/plusSelected.svg' : 'assets/images/plus.svg'),
             title: Text(
-              'New',
+              'new'.tr(),
               style: TextStyle(
                 fontFamily: 'Ubuntu',
                 fontSize: 10.0,
@@ -144,7 +128,7 @@ class _MainScreenState extends State<MainScreen> {
           BottomNavigationBarItem(
             icon: SvgPicture.asset(_selectedItem == 3 ? 'assets/images/bookmarkSelected.svg' : 'assets/images/bookmark.svg'),
             title: Text(
-              'Saved',
+              'saved'.tr(),
               style: TextStyle(
                 fontFamily: 'Ubuntu',
                 fontSize: 10.0,
@@ -155,7 +139,7 @@ class _MainScreenState extends State<MainScreen> {
           BottomNavigationBarItem(
             icon: SvgPicture.asset(_selectedItem == 4 ? 'assets/images/profileSelected.svg' : 'assets/images/profile.svg' ),
             title: Text(
-              'Profile',
+              'profile'.tr(),
               style: TextStyle(
                 fontFamily: 'Ubuntu',
                 fontSize: 10.0,

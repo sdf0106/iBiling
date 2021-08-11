@@ -17,17 +17,20 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
   set setInitialDate(String initialDate) {
     this.initialDate = initialDate;
   }
+
   String get getInitialDate {
     return initialDate;
-  } 
+  }
+
   set setLastDate(String lastDate) {
     this.lastDate = lastDate;
   }
+
   String get getLastDate {
     return lastDate;
   }
 
-  Future<void> fetchData() async{
+  Future<void> fetchData() async {
     mockData = await MockIBillingService().getContractResponse();
   }
 
@@ -35,31 +38,32 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
     history = [];
     mockData.forEach((element) {
       final contractCreated = DateTime.parse(element.date);
-      if ( contractCreated.isAfter(DateTime.parse(initialDate)) && contractCreated.isBefore(DateTime.parse(lastDate))){
+      if (contractCreated.isAfter(DateTime.parse(initialDate)) &&
+          contractCreated.isBefore(DateTime.parse(lastDate))) {
         history.add(element);
       }
     });
   }
+
   @override
   Stream<HistoryState> mapEventToState(
     HistoryEvent event,
   ) async* {
-    if(event is InitializedHistoryEvent){
+    if (event is InitializedHistoryEvent) {
       yield HistoryInitial();
-    }
-    else if(event is LoadHistoryEvent){
-      yield LoadingHistoryState();
-      try{
-      List<Contract>  mockData = await MockIBillingService().getContractResponse();
-     
-      filterHistory();
-    
-        yield LoadedHistoryState(contracts: history);
-      }catch(error){
-        FailedToLoadHistory(error: error);
+    } else if (event is LoadHistoryEvent) {
+      if (!(initialDate == '' || lastDate == '')) {
+        yield LoadingHistoryState();
+        await fetchData();
+        filterHistory();
+        try {
+          yield LoadedHistoryState(contracts: history);
+        } catch (error) {
+          FailedToLoadHistory(error: error);
+        }
+      } else {
+        yield DateNotProvidedState();
       }
-    }else {
-      yield DateNotProvidedState();
     }
   }
 }

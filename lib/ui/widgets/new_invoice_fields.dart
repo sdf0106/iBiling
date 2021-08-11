@@ -10,8 +10,21 @@ class NewInvoiceFields extends StatefulWidget {
 }
 
 class _NewInvoiceFieldsState extends State<NewInvoiceFields> {
-  TextEditingController services = TextEditingController();
-  TextEditingController amount = TextEditingController();
+  bool isFilled = false;
+  List<TextEditingController> controllers = [
+    TextEditingController(),
+  TextEditingController() 
+  ];
+   void checkTextField() {
+    bool temp = true;
+
+    for (var controller in controllers) {
+      if (controller.text.isEmpty) temp = false;
+    }
+    setState(() {
+      isFilled = temp;
+    });
+  }
   String status = ' ';
   @override
   Widget build(BuildContext context) {
@@ -32,7 +45,10 @@ class _NewInvoiceFieldsState extends State<NewInvoiceFields> {
           ),
           SizedBox(height: 6.0),
           TextField(
-            controller: services,
+            onChanged: (name) {
+              checkTextField();
+            },
+            controller: controllers.first,
             style: TextStyle(
               color: Colors.white,
               fontFamily: 'Ubuntu',
@@ -69,7 +85,10 @@ class _NewInvoiceFieldsState extends State<NewInvoiceFields> {
           ),
           SizedBox(height: 6.0),
           TextField(
-            controller: amount,
+            onChanged: (amount) {
+              checkTextField();
+            },
+            controller: controllers.last,
             style: TextStyle(
               color: Colors.white,
               fontFamily: 'Ubuntu',
@@ -153,7 +172,33 @@ class _NewInvoiceFieldsState extends State<NewInvoiceFields> {
                 ),
               ),
             ),
+            SizedBox(height: 24.0),
+            if (isFilled) saveButton(),
         ],
+      ),
+    );
+  }
+  Widget saveButton(){
+    return GestureDetector(
+      onTap: () {},
+      child: Container(
+        height: 44.0,
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+          color: Style.Colors.darkGreen,
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: Center(
+          child: Text(
+            'Save contract',
+            style: TextStyle(
+              color: Color(0xFFFDFDFD),
+              fontSize: 16.0,
+              fontFamily: 'Ubuntu',
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
       ),
     );
   }
